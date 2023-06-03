@@ -5,8 +5,6 @@ from pprint import pprint
 import re
 from urllib.parse import urlparse
 import collections
-sys.path.append('/home/tom/projects/tools')
-from common import get_methods
 import requests
 from requests.exceptions import HTTPError
 
