@@ -284,9 +284,10 @@ def html_body_shorthand(html, tags):
         _build_parse_tree(node=current_node, tag=tag, whitelist_tags=tags, level=current_level)
 
 
-    template_string = _generate_outline_shorthand(tag_tree)
+    #_print_tree(tag_tree, 0)
+    template_string = _generate_body_shorthand_string(tag_tree)
 
-    print(template_string)
+    return template_string.rstrip(",")
 
 def _print_tree(tree, level):
     for node in tree:
@@ -299,7 +300,7 @@ def _print_tree(tree, level):
             if len(node["_child"]) > 0:
                 _print_tree(node["_child"], level)
 
-def _generate_outline_shorthand(tree):
+def _generate_body_shorthand_string(tree):
     string = ""
     for node in tree:
         if node["_use"] is True:
@@ -307,7 +308,7 @@ def _generate_outline_shorthand(tree):
 
             if len(node["_child"]) > 0:
                 string_test = ""
-                string_test += _generate_outline_shorthand(node["_child"])
+                string_test += _generate_body_shorthand_string(node["_child"])
                 if string_test:
                     string = string.rstrip(",")
                     string += '('
@@ -315,7 +316,7 @@ def _generate_outline_shorthand(tree):
                     string += '),'
         elif node["_use"] is False:
             if len(node["_child"]) > 0:
-                string += _generate_outline_shorthand(node["_child"])
+                string += _generate_body_shorthand_string(node["_child"])
 
     string.rstrip(",")
 
@@ -434,3 +435,4 @@ if __name__ == "__main__":
     
 
     pprint(result)
+
